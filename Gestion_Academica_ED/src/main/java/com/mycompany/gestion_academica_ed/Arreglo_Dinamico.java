@@ -44,6 +44,8 @@ public class Arreglo_Dinamico {
     //duplica/copia los elementos
         for (int i = 0; i < contador; i++) {
             nuevoArreglo[i]=arregloIn[i];
+            arregloIn=nuevoArreglo;
+            capacidad=nuevaCapacidad;
         }
     }
     
@@ -54,6 +56,6 @@ public class Arreglo_Dinamico {
      * tambien
      */
     public void restaContador(){
-    
+    if(contador>0)contador--;
     }
 }
