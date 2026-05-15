@@ -15,45 +15,60 @@ public class Arreglo_Dinamico {
     private int contador;
 
     public Arreglo_Dinamico() {
+        capacidad = 10;
+        contador = 0;
+        arregloIn = new Object[capacidad];
     }
     
     public Arreglo_Dinamico(Object[] arregloIn, int capacidad, int contador) {
-        this.arregloIn = new Object[capacidad];
-        this.capacidad = 10;
-        this.contador = 0;
+        this.arregloIn = arregloIn;
+        this.capacidad = capacidad;
+        this.contador = contador;
     }
     
     public void agregar(Object dato){
-    if(contador == capacidad){redimensionar();}
-    arregloIn[contador]=dato;
-    contador++;
+        if(contador == capacidad){
+            redimensionar();
+        }
+        arregloIn[contador] = dato;
+        contador++;
     }
     
     public Object obtener(int indice){
-        if (indice<0||indice>=contador) {
-            throw new IndexOutOfBoundsException("El indice esta fuewra de rango.");
-        } return arregloIn[indice];
+        if (indice < 0 || indice >= contador) {
+            throw new IndexOutOfBoundsException("El indice esta fuera de rango.");
+        }
+        return arregloIn[indice];
     }
     
-    public void redimensionar(){
     /**
      * este metodo es para aumentar el tamaño 
      */
-    int nuevaCapacidad=capacidad*2;
-    Object [] nuevoArreglo = new Object[nuevaCapacidad];
-    //duplica/copia los elementos
-        for (int i = 0; i < contador; i++) {
-            nuevoArreglo[i]=arregloIn[i];
-        }
+    public void redimensionar(){
+        int nuevaCapacidad = capacidad * 2;
+        Object [] nuevoArreglo = new Object[nuevaCapacidad];
+            //duplica/copia los elementos
+            for (int i = 0; i < contador; i++) {
+                nuevoArreglo[i] = arregloIn[i];
+            }
+            arregloIn = nuevoArreglo;
+            capacidad = nuevaCapacidad;
     }
     
-    public int obtenerTamaño(){return contador;}
+    public int obtenerTamaño(){
+        return contador;
+    }
     
     /**
      * para eliminar un curso se debe restar del contador
      * tambien
      */
     public void restaContador(){
-    
+        if(contador > 0){
+            contador--;
+        }
     }
+    
+    
+    
 }
