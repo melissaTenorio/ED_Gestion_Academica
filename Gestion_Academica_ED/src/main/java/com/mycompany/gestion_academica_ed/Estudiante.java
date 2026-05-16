@@ -14,41 +14,55 @@ public class Estudiante {
     private String telefono;
     private String correo;
     private String direccion;
-private Arreglo_Dinamico calificaciones;
+    private Arreglo_Dinamico calificaciones;
+    
+    /**
+    * constructor de estudiante
+    */
+   public Estudiante(String Matricula, String nomCompleto, String telefono, String correo, String direccion) {
+       this.Matricula = Matricula;
+       this.nomCompleto = nomCompleto;
+       this.telefono = telefono;
+       this.correo = correo;
+       this.direccion = direccion;
+       // inicializa arreglo dinamico
+       calificaciones = new Arreglo_Dinamico();
+   }
 
-    public Estudiante() {
+    /**
+    * metodos para agregar calificaciones, calcular promedio y mostrar dichas calificaciones
+    */
+    public void agregarCalificacion(double cal){
+       this.calificaciones.agregar(cal);
     }
 
-    public Estudiante(String Matricula, String nomCompleto, String telefono, String correo, String direccion, Arreglo_Dinamico calificaciones) {
-        this.Matricula = Matricula;
-        this.nomCompleto = nomCompleto;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.direccion = direccion;
-        this.calificaciones = calificaciones;
+    public double calcularPromedio(){
+       if(calificaciones.obtenerTamaño() == 0){
+            return 0;
+        }
+
+        double suma = sumaRecursiva(0);
+
+        return suma / calificaciones.obtenerTamaño();
     }
+    
+    /**
+    * suma recursiva de calificaciones
+    */
+    private double sumaRecursiva(int indice){
+        if(indice == calificaciones.obtenerTamaño()){
+            return 0;
+        }
 
-
-
-
-public void agregarCalificacion(double cal){ this.calificaciones.agregar(cal);}
-   public double CalcularPromedio(){
-   if(calificaciones.obtenerTamaño()==0)return 0.0;
-   double suma=0;
-       for (int i = 0; i < calificaciones.obtenerTamaño(); i++) {
-           suma+=(double)calificaciones.obtener(i);
-       } return suma/calificaciones.obtenerTamaño();
-   }
+        return (double) calificaciones.obtener(indice) + sumaRecursiva(indice + 1);
+    }
+    
    
-   public void mostrarCalificacionesYpromedio(){
-   
-   }
-   
-/**
- * getters y setters
- * @return 
- */
-public String getMatricula() {
+    /**
+     * getters y setters
+     * @return 
+     */
+    public String getMatricula() {
         return Matricula;
     }
 
@@ -96,5 +110,10 @@ public String getMatricula() {
         this.calificaciones = calificaciones;
     }
 
-
+    @Override
+    public String toString() {
+        return "Estudiante{" + "Matricula=" + Matricula + ", nomCompleto=" + nomCompleto + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + ", calificaciones=" + calificaciones + '}';
+    }
+    
+  
 }
