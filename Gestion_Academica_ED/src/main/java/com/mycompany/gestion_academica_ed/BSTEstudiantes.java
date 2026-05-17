@@ -10,7 +10,7 @@ package com.mycompany.gestion_academica_ed;
  */
 public class BSTEstudiantes {
     // raiz principal del arbol
-    private NodoBST raiz;
+    private NodoBST<Estudiante> raiz;
 
     /**
      * constructor del BST
@@ -24,34 +24,38 @@ public class BSTEstudiantes {
      * en el arbol binario de busqueda
      */
     public void insertar(Estudiante estudiante) {
-        raiz = insertarRecursivo(raiz,estudiante);
+        raiz = insertarRecursivo(raiz, estudiante);
     }
 
     /**
      * metodo recursivo para insertar
      * estudiantes comparando matriculas
      */
-    private NodoBST insertarRecursivo(NodoBST actual, Estudiante estudiante) {
+    private NodoBST<Estudiante> insertarRecursivo(NodoBST<Estudiante> actual, Estudiante estudiante) {
         /**
          * si el nodo esta vacio
          * se crea uno nuevo
          */
         if (actual == null) {
-            return new NodoBST(estudiante);
+            return new NodoBST<>(estudiante);
         }
 
         /**
-         * compareTo:
-         * menor que 0 -> izquierda
-         * mayor que 0 -> derecha
+         * comparar matriculas
          */
 
         // insertar izquierda
-        if (estudiante.getMatricula().compareTo(actual.estudiante.getMatricula()) < 0) {
+        if (estudiante.getMatricula().compareTo(actual.dato.getMatricula()) < 0) {
             actual.izquierda = insertarRecursivo(actual.izquierda, estudiante);
-        } else {
+        } else if (estudiante.getMatricula().compareTo(actual.dato.getMatricula()) > 0) {
             // insertar derecha
-            actual.derecha = insertarRecursivo(actual.derecha, estudiante);
+            actual.derecha = insertarRecursivo(actual.derecha,estudiante);
+        } else {
+            /**
+             * matricula repetida
+             * no insertar
+             */
+            return actual;
         }
         return actual;
     }
@@ -67,7 +71,7 @@ public class BSTEstudiantes {
     /**
      * metodo recursivo de busqueda
      */
-    private Estudiante buscarRecursivo(NodoBST actual, String matricula) {
+    private Estudiante buscarRecursivo(NodoBST<Estudiante> actual, String matricula) {
         /**
          * si llega a null
          * el estudiante no existe
@@ -80,15 +84,15 @@ public class BSTEstudiantes {
          * si encuentra la matricula
          * retorna el estudiante
          */
-        if (actual.estudiante.getMatricula().equals(matricula)) {
-            return actual.estudiante;
+        if (actual.dato.getMatricula().equals(matricula)) {
+            return actual.dato;
         }
 
         /**
          * si la matricula es menor
          * buscar izquierda
          */
-        if (matricula.compareTo(actual.estudiante.getMatricula()) < 0) {
+        if (matricula.compareTo(actual.dato.getMatricula()) < 0) {
             return buscarRecursivo(actual.izquierda, matricula);
         }
 
@@ -100,9 +104,36 @@ public class BSTEstudiantes {
     }
 
     /**
+     * obtiene todos los estudiantes
+     * en orden por matricula
+     */
+    public Arreglo_Dinamico obtenerEstudiantes() {
+        Arreglo_Dinamico lista = new Arreglo_Dinamico();
+        
+        inOrdenRecursivo(raiz, lista);
+        return lista;
+    }
+
+    /**
+     * recorrido inorder recursivo
+     */
+    private void inOrdenRecursivo(NodoBST<Estudiante> nodo, Arreglo_Dinamico lista) {
+        if (nodo != null) {
+            // izquierda
+            inOrdenRecursivo(nodo.izquierda, lista);
+
+            // guardar estudiante
+            lista.agregar(nodo.dato);
+
+            // derecha
+            inOrdenRecursivo(nodo.derecha, lista);
+        }
+    }
+
+    /**
      * getter de la raiz
      */
-    public NodoBST getRaiz() {
+    public NodoBST<Estudiante> getRaiz() {
         return raiz;
     }
     

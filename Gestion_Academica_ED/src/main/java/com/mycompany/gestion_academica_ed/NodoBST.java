@@ -8,21 +8,18 @@ package com.mycompany.gestion_academica_ed;
  *
  * @author PC GAMER MASTER RACE
  */
-public class NodoBST {
-    // aqui se guarda el estudiante
-    Estudiante estudiante;
-
-    // referencias a los hijos
-    NodoBST izquierda;
-    NodoBST derecha;
+public class NodoBST<T> {
+    // dato almacenado
+    T dato;
+    // referencias a hijos
+    NodoBST<T> izquierda;
+    NodoBST<T> derecha;
 
     /**
      * constructor del nodo
-     * recibe un estudiante y lo guarda en el nodo
      */
-    public NodoBST(Estudiante estudiante) {
-        this.estudiante = estudiante;
-        // al inicio los hijos apuntan a null
+    public NodoBST(T dato) {
+        this.dato = dato;
         izquierda = null;
         derecha = null;
     }

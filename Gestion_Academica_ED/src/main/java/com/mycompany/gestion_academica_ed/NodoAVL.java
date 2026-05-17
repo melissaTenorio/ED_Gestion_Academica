@@ -8,27 +8,19 @@ package com.mycompany.gestion_academica_ed;
  *
  * @author PC GAMER MASTER RACE
  */
-public class NodoAVL {
-    // promedio del estudiante
-    double promedio;
-
-    // referencia al estudiante
-    Estudiante estudiante;
-
-    // hijos
-    NodoAVL izquierda;
-    NodoAVL derecha;
-
-    // altura del nodo
+public class NodoAVL<T> {
+    double clave;
+    T dato;
+    NodoAVL<T> izquierda;
+    NodoAVL<T> derecha;
     int altura;
 
     /**
-     * constructor del nodo AVL
+     * constructor
      */
-    public NodoAVL(double promedio, Estudiante estudiante) {
-        this.promedio = promedio;
-        this.estudiante = estudiante;
+    public NodoAVL(double clave, T dato) {
+        this.clave = clave;
+        this.dato = dato;
         altura = 1;
     }
-    
 }
